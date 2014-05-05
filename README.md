@@ -1,11 +1,19 @@
 # RefreshingCache
 
-*Goal:* A background job unpredictibly sets a database row that I want to fetch
-in a timely, but not immediate manner.  Every X seconds, I want to check if the
-value is updated, and if so, update my value of it.
+*Motivation:* We have a background job that unpredictably sets a database row
+that the application needs to be aware of on a regular, but delayed basis.  We
+can't afford to check for an update every request, and the processing the app
+needs to do when it does change is substantial, so we don't want to toss the
+cache unnecessarily.
 
 *What this is:* A hash wrapper that lets you set a timeout, a checking proc, and
 a refresh proc.
+
+* When a value isn't present, the refersh proc runs to populate the cache
+* When the timeout gets hit, the check_proc runs to see if a refresh is
+  actually required (just because it timed out doesn't mean the cache needs to be
+  tossed)
+
 
 ## Installation
 
