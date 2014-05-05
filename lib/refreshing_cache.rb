@@ -1,7 +1,7 @@
 require 'delegate'
 
 class RefreshingCache < DelegateClass(Hash)
-  VERSION = "1.0.0"
+  VERSION = "1.0.1"
 
   def initialize(timeout: timeout, check_proc: check_proc, value_proc: value_proc)
     @timeout = timeout
