@@ -18,13 +18,14 @@ class RefreshingCache < DelegateClass(Hash)
   end
 
   def [](key)
-    refresh!(key) if regenerate_value?(key)
+    self[key] = refresh!(key) if regenerate_value?(key)
     super
   end
 
   def refresh!(key)
-    refresh_proc.call(key, timeouts[key])
+    val = refresh_proc.call(key, timeouts[key])
     timeouts[key] = Time.now
+    val
   end
 
   protected
@@ -35,7 +36,7 @@ class RefreshingCache < DelegateClass(Hash)
     return true unless timeouts.has_key?(key)
 
     # If we've timed out, force a check
-    return true if timeouts[key] + timeout < Time.now
+    return false if timeouts[key] + timeout > Time.now
 
     check_proc.call(key, timeouts[key])
   end
