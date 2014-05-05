@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["chris@christopher-schneider.com"]
   spec.summary       = %q{A hash-like object that attempts to refresh the keys based on some rules}
   spec.description   = %q{A hash-like object that attempts to refresh the keys based on some rules.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/cschneid/refreshing_cache"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
